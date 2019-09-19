@@ -124,16 +124,17 @@ user@host&gt; show configuration routing-options static | display set relative
 </pre>
 
 * You will get the output in the form:
+
 </pre>
-set route 172.16.0.0/12 next-hop 10.102.175.254
-set route 172.16.0.0/12 retain
-set route 172.16.0.0/12 no-readvertise
-set route 10.0.0.0/8 next-hop 10.102.175.254
-set route 10.0.0.0/8 retain
-set route 10.0.0.0/8 no-readvertise
-set route 66.129.255.62/32 next-hop 10.102.175.254
-set route 66.129.255.62/32 retain
-set route 66.129.255.62/32 no-readvertise
+    set route 172.16.0.0/12 next-hop 10.102.175.254
+    set route 172.16.0.0/12 retain
+    set route 172.16.0.0/12 no-readvertise
+    set route 10.0.0.0/8 next-hop 10.102.175.254
+    set route 10.0.0.0/8 retain
+    set route 10.0.0.0/8 no-readvertise
+    set route 66.129.255.62/32 next-hop 10.102.175.254
+    set route 66.129.255.62/32 retain
+    set route 66.129.255.62/32 no-readvertise
 </pre>
 
 * Select only routes having the next-hop on the network where **fxp0** is connected and configure them in the **mgmt_junos** routing instance:
