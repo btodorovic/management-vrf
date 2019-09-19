@@ -3,17 +3,17 @@
 
 ## Methods
 
-1. [Fake management VRF - with route leaking](#fake)
-2. [Routing instance **mgmt_junos**](#mgmt_junos)
+1. [Fake management VRF - with route leaking](#fake) - [VMM configurations](fake-mgmt-vrf)
+2. [Routing instance **mgmt_junos**](#mgmt_junos) - [VMM configurations](mgmt_junos)
+3. [Routing instance **mgmt_junos** - with route leaking into inet.0](#mgmt_junos_inet0) - VMM configurations same as previous.
 
-## Applicability - Use Cases
+## Applicability Matrix
 
-In any of the following cases, use the former ([Fake management VRF](#fake)) method:
-
-* JUNOS version older than 17.3, or:
-* Routers managed **IN-BAND**, with management traffic terminated in a non-default routing-instance.
-
-Otherwise, if neither of the above matches your use case - use the latter ([mgmt_junos](#mgmt_junos)) method.
+|  Junos OS Release     | IN-BAND       |      OUT-OF-BAND     |
+|:----------------------|:-------------:|:--------------------:|
+|  Older than 17.3R1    |   1(#fake)    |  N/A (inet.0 only)   |
+|  17.3R1 up to 17.4R3  |   1(#fake)    | 3(#mgmt_junos_inet0) |
+|  18.1R1 or newer      |   1(#fake)    | 2(#mgmt_junos)       |
 
 <a name="fake">
 ## 1. Fake Management VRF - with Route Leaking
@@ -26,7 +26,7 @@ We want to allow IN-BAND management via VRF MGMT.
 
 ### Principle
 
-* We define routing-instance MGMT on the router, classic one:
+* We define routing-instance MGMT on the router - standard VRF configuration:
 <pre>
     routing-instances {
         MGMT {
@@ -40,7 +40,7 @@ We want to allow IN-BAND management via VRF MGMT.
     }
 </pre>
 
-* The lo0.1 address is identical to lo0.0:
+* Set the lo0.1 address to be identical to lo0.0 - e.g.:
 <pre>
     interfaces {
         lo0 {
@@ -58,7 +58,9 @@ We want to allow IN-BAND management via VRF MGMT.
     }
 </pre>
 
-* In [edit routing-options] - we need to let the router know that BSS/OSS/NMS is within VRF MGMT, so NTP/SNMP/TACACS+ etc. responses go into VRF MGMT:
+* In [edit routing-options] - we need to let the router know that BSS/OSS/NMS is within VRF MGMT, so NTP/SNMP/TACACS+ etc. responses go into VRF MGMT.
+  For that part we need to use the [**next-table**](https://www.juniper.net/documentation/en_US/junos/topics/reference/configuration-statement/static-edit-routing-options.html)
+  knob at the **[edit routing-options static route <\*>]** configuration level:
 <pre>
     routing-options {
         static {
@@ -69,6 +71,14 @@ We want to allow IN-BAND management via VRF MGMT.
 
 * BSS/OSS/NMS - is connected on the "noc" router, to ge-0/0/2 (in this demo - Linux server)
 * No special additions required on the "noc" router, this works out-of-the-box.
+
+**Effect:** Management traffic comes via the **MGMT** routing instance, where it hits the **lo0.1** loopback.
+This traffic is then passed towards the appropriate target daemon on the router (e.g. snmpd, ntpd etc.).
+The daemon receives the incoming messages and sends the responses back. However, since daemons operate at the
+underlying FreeBSD level, they are not VRF aware, so they send the traffic back using the default **inet**
+routing table. However, in the **inet** routing table, in the next-hop options, [next-table](https://www.juniper.net/documentation/en_US/junos/topics/reference/configuration-statement/static-edit-routing-options.html)
+knob is present pointing to the **MGMT.inet.0** routing table, so the management traffic from the router towards the BSS/OSS/NMS servers will be redirected to
+the **MGMT** routing instance.
 
 ### Services Tested
 
@@ -84,6 +94,11 @@ We want to allow IN-BAND management via VRF MGMT.
 
 Starting with Junos OS Release 17.3R1, you can confine the management interface in a nondefault virtual routing and forwarding (VRF) instance, the mgmt_junos routing instance.
 More information is available on the relevant <a href="https://www.juniper.net/documentation/en_US/junos/topics/topic-map/management-interface-in-non-default-instance.html">Junos OS Documentation page</a>.
+Although this feature was introduced in Junos 17.3R1, none of the services was VRF-aware in that release, so in that case
+an additional step is required for services not operating within the **mgmt_junos** routing instance.
+Similar to the [fake management VRF](#fake) use case, we need to use the [**next-table**](https://www.juniper.net/documentation/en_US/junos/topics/reference/configuration-statement/static-edit-routing-options.html) knob
+at the **[edit routing-options static route <\*>]** configuration level, to leak various BSS/OSS/NMS routes from **mgmt_junos.inet.0** into **inet.0**.
+This method should be applied after all steps described in this chapter are applied. More information about this can be found [here](#mgmt_junos_inet0).
 
 ### Principle
 
@@ -150,3 +165,38 @@ commit and-quit
 
 You will lose remote access to the router, but that's only tempoprary.
 If everything was done fine, you will be able to login into the router again.
+
+### Services Tested
+
+| Service                        | Minimum Junos OS Relase |
+|--------------------------------|-------------------------|
+| Automation Scripts             | 18.1R1                  |
+| BGP Moniotoring Protocol (BMP) | 18.3R1                  |
+| NTP                            | 18.1R1                  |
+| RADIUS                         | 18.1R1                  |
+| TACACS+                        | 17.4R1                  |
+| SYSLOG                         | 18.4R1                  |
+| DNS                            | 18.4R1                  |
+
+For services not working within **mgmt_junos** routing instance, use [route leaking into inet.0](#mgmt_junos_inet0) option.
+
+<a name="mgmt_junos_inet0">
+## 3. Routing Instance **mgmt_junos** - with Route Leaking into inet.0
+</a>
+
+This option is implemented in two stages:
+
+* First, implement the [routing instance **mgmt_junos**](#mgmt_junos), according to the instructions provided in the [previous chapter](#mgmt_junos).
+* Secondly, for any service not being capable of working within the **mgmt_junos** routing instance, add a static route in **inet.0** with the
+  [**next-table**](https://www.juniper.net/documentation/en_US/junos/topics/reference/configuration-statement/static-edit-routing-options.html) knob pointing to
+  the **mgmt_junos** routing instance - e.g.:
+
+<pre>
+    routing-options {
+        static {
+            route 100.0.1.3/32 next-table mgmt_junos.inet.0; ### VRF-unaware service (e.g. DNS)
+        }
+    }
+</pre>
+
+
