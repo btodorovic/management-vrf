@@ -3,8 +3,8 @@
 
 ## Methods
 
-1. [Fake management VRF - with route leaking](#fake) - [VMM configurations](fake-mgmt-vrf)
-2. [Routing instance **mgmt_junos**](#mgmt_junos) - [VMM configurations](mgmt_junos)
+1. [Fake management VRF - with route leaking](#fake) - see sample [VMM configuration](fake-mgmt-vrf)
+2. [Routing instance **mgmt_junos**](#mgmt_junos) - see sample [VMM configurations](mgmt_junos)
 3. [Routing instance **mgmt_junos** - with route leaking into inet.0](#mgmt_junos_inet0) - VMM configurations same as previous.
 
 ## Applicability Matrix
