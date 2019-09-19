@@ -27,18 +27,18 @@ We want to allow IN-BAND management via VRF MGMT.
 ### Principle
 
 * We define routing-instance MGMT on the router, classic one:
-<code>
-routing-instances {
-    MGMT {
-        instance-type vrf;
-        interface lo0.1;                  ### VRF-specific loopback
-        route-distinguisher 100.0.0.1:1;
-        vrf-import PL-MGMT-IMPORT;
-        vrf-export PL-MGMT-EXPORT;
-        vrf-table-label;
+<pre>
+    routing-instances {
+        MGMT {
+            instance-type vrf;
+            interface lo0.1;                  ### VRF-specific loopback
+            route-distinguisher 100.0.0.1:1;
+            vrf-import PL-MGMT-IMPORT;
+            vrf-export PL-MGMT-EXPORT;
+            vrf-table-label;
+        }
     }
-}
-</code>
+</pre>
 
 * The lo0.1 address is identical to lo0.0:
 <pre>
