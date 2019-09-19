@@ -42,29 +42,29 @@ We want to allow IN-BAND management via VRF MGMT.
 
 * The lo0.1 address is identical to lo0.0:
 <pre>
-interfaces {
-    lo0 {
-        unit 0 {
-            family inet {
-                address 100.0.0.3/32;
+    interfaces {
+        lo0 {
+            unit 0 {
+                family inet {
+                    address 100.0.0.3/32;
+                }
             }
-        }
-        unit 1 {
-            family inet {
-                address 100.0.0.3/32;
+            unit 1 {
+                family inet {
+                    address 100.0.0.3/32;
+                }
             }
         }
     }
-}
 </pre>
 
 * In [edit routing-options] - we need to let the router know that BSS/OSS/NMS is within VRF MGMT, so NTP/SNMP/TACACS+ etc. responses go into VRF MGMT:
 <pre>
-routing-options {
-    static {
-        route 100.0.1.0/24 next-table MGMT.inet.0; ### BSS/OSS/NMS range
+    routing-options {
+        static {
+            route 100.0.1.0/24 next-table MGMT.inet.0; ### BSS/OSS/NMS range
+        }
     }
-}
 </pre>
 
 * BSS/OSS/NMS - is connected on the "noc" router, to ge-0/0/2 (in this demo - Linux server)
