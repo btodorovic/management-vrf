@@ -112,9 +112,10 @@ Otherwise, you'll be cut off from the remote session and the only way to get bac
 same LAN segment where fxp0 interface is connected to, or via the serial console port.
 
 * Activate the knob (**DO NOT COMMIT YET!**):
+
 <pre>
     [edit]
-    user@host# **set system management-instance**
+    user@host# set system management-instance
 </pre>
 
 * Make a list of all static routes:
