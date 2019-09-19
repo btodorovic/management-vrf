@@ -9,11 +9,14 @@
 
 ## Applicability Matrix
 
-|  Junos OS Release     | IN-BAND       |      OUT-OF-BAND       |
+Depending on your Junos OS Release and router management method (in-band/out-of-band), you should go for the following options:
+
+| **Junos OS Release**  | **IN-BAND**   |   **OUT-OF-BAND**      |
 |:----------------------|:-------------:|:----------------------:|
 |  Older than 17.3R1    |  [1](#fake)   |  N/A (inet.0 only)     |
 |  17.3R1 up to 17.4R3  |  [1](#fake)   | [3](#mgmt_junos_inet0) |
 |  18.1R1 or newer      |  [1](#fake)   | [2](#mgmt_junos)       |
+
 
 <a name="fake">
 ## 1. Fake Management VRF - with Route Leaking
@@ -168,15 +171,15 @@ If everything was done fine, you will be able to login into the router again.
 
 ### Services Tested
 
-| Service                        | Minimum Junos OS Relase |
-|--------------------------------|-------------------------|
-| Automation Scripts             | 18.1R1                  |
-| BGP Moniotoring Protocol (BMP) | 18.3R1                  |
-| NTP                            | 18.1R1                  |
-| RADIUS                         | 18.1R1                  |
-| TACACS+                        | 17.4R1                  |
-| SYSLOG                         | 18.4R1                  |
-| DNS                            | 18.4R1                  |
+| **Service**                    | **Minimum Junos OS Relase** |
+|--------------------------------|-----------------------------|
+| Automation Scripts             | 18.1R1                      |
+| BGP Moniotoring Protocol (BMP) | 18.3R1                      |
+| NTP                            | 18.1R1                      |
+| RADIUS                         | 18.1R1                      |
+| TACACS+                        | 17.4R1                      |
+| SYSLOG                         | 18.4R1                      |
+| DNS                            | 18.4R1                      |
 
 For services not working within **mgmt_junos** routing instance, use [route leaking into inet.0](#mgmt_junos_inet0) option.
 
