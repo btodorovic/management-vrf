@@ -1,0 +1,21 @@
+PHASE 3
+AS100
+#
+ID 0
+#
+CLNS_AREA	49.0100
+IPv4    100.0.8.0/24
+LBv4    100.0.0.0/24
+IPv6    0
+LBv6    0
+PREFIX  31      64
+#
+VMX_DISK /vmm/data/user_disks/btodorovic/junos-x86-64-17.3R3-S2.2.vmdk
+#
+isis	noc	p
+isis	p	pe
+isis	p	rr
+noigp	srv	noc
+noigp	srv	noc
+#
+BGP	rr	noc	pe

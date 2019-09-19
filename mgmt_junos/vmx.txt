@@ -1,0 +1,62 @@
+system {
+    root-authentication {
+        ssh-rsa "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAIEAndoan2TzmZp3J3UJjlXksF1DcJhntlLTs9mEVkY/0sTXTgqe75cVB9cwOY8Vsj9l3p6yOpO0cMwbxiWmLmnYzBDoeyTAKzFLr/Ccdm0NhMLFnP/pyewShQJNOJLPCERNxAWCQlrQnXE+UvqrY45fOQc4NnHhggBK3IdB6AcHOn8=";
+    }
+}
+interfaces {
+    lo0 {
+        unit 0 {
+            family inet {
+                address 172.16.0.1/32;
+            }
+	    family inet6 {
+                address 2001:cafe::1/128;
+            }
+	    family mpls;
+        }
+    }
+    ge-0/0/1 {
+        description "private2 :: vmx -- srv";
+        unit 0 {
+            family inet {
+                address 172.17.1.1/24;
+            }
+	    family inet6 {
+                address 2001:cafe:1::1/64;
+            }
+            family iso;
+            family mpls;
+        }
+    }
+    ge-0/0/2 {
+        description "private3 :: vmx -- srv";
+        unit 0 {
+            family inet {
+                address 172.17.2.1/24;
+            }
+	    family inet6 {
+                address 2001:cafe:2::1/64;
+            }
+        }
+    }
+}
+routing-options {
+    router-id 172.16.0.1;
+    autonomous-system 65500;
+}
+protocols {
+    bgp {
+        group EBGPv4 {
+            peer-as 65001;
+            family inet any;
+            neighbor 172.17.1.2;
+            neighbor 172.17.2.2;
+        }
+        group EBGPv6 {
+            peer-as 65001;
+            family inet6 any;
+            neighbor 2001:cafe:1::2;
+            neighbor 2001:cafe:2::2;
+        }
+    }
+}
