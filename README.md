@@ -222,4 +222,8 @@ This option is implemented in two stages:
     }
 </pre>
 
-
+**Effect:** Management traffic will come via the **mgmt_junos** routing instance, while the host outbound (return)
+traffic will try to find its next hop in the default routing instance (**inet.0**); however, the static route
+to the traffic destination, with the **next-table** knob pointing back to the routing table **mgmt_junos.inet.0**
+will instruct the router to perform the next hop lookup in the routing instance **mgmt_junos** ... Actually, the
+same configuration applicable for the [fake management VRF](#fake) use case.
