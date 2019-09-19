@@ -113,8 +113,8 @@ same LAN segment where fxp0 interface is connected to, or via the serial console
 
 * Activate the knob (**DO NOT COMMIT YET!**):
 <pre>
-[edit]
-user@host# set system management-instance
+    [edit]
+    user@host# **set system management-instance**
 </pre>
 
 * Make a list of all static routes:
@@ -125,7 +125,7 @@ user@host&gt; show configuration routing-options static | display set relative
 
 * You will get the output in the form:
 
-</pre>
+<pre>
     set route 172.16.0.0/12 next-hop 10.102.175.254
     set route 172.16.0.0/12 retain
     set route 172.16.0.0/12 no-readvertise
@@ -140,31 +140,31 @@ user@host&gt; show configuration routing-options static | display set relative
 * Select only routes having the next-hop on the network where **fxp0** is connected and configure them in the **mgmt_junos** routing instance:
 
 <pre>
-edit routing-instances mgmt_junos routing-options static
-set route 172.16.0.0/12 next-hop 10.102.175.254
-set route 172.16.0.0/12 retain
-set route 172.16.0.0/12 no-readvertise
-set route 10.0.0.0/8 next-hop 10.102.175.254
-set route 10.0.0.0/8 retain
-set route 10.0.0.0/8 no-readvertise
-set route 66.129.255.62/32 next-hop 10.102.175.254
-set route 66.129.255.62/32 retain
-set route 66.129.255.62/32 no-readvertise
+    edit routing-instances mgmt_junos routing-options static
+    set route 172.16.0.0/12 next-hop 10.102.175.254
+    set route 172.16.0.0/12 retain
+    set route 172.16.0.0/12 no-readvertise
+    set route 10.0.0.0/8 next-hop 10.102.175.254
+    set route 10.0.0.0/8 retain
+    set route 10.0.0.0/8 no-readvertise
+    set route 66.129.255.62/32 next-hop 10.102.175.254
+    set route 66.129.255.62/32 retain
+    set route 66.129.255.62/32 no-readvertise
 </pre>
 
 * Remove those same static routes from the master routing instance:
 
 <pre>
-edit routing-options static
-delete route 172.16.0.0/12
-delete route 10.0.0.0/8
-delete route 66.129.255.62/32
+    edit routing-options static
+    delete route 172.16.0.0/12
+    delete route 10.0.0.0/8
+    delete route 66.129.255.62/32
 </pre>
 
 * Now, **COMMIT** the configuration and you're done:
 
 <pre>
-commit and-quit
+    commit and-quit
 </pre>
 
 You will lose remote access to the router, but that's only tempoprary.
