@@ -121,7 +121,7 @@ same LAN segment where fxp0 interface is connected to, or via the serial console
 * Make a list of all static routes:
 
 <pre>
-user@host&gt; show configuration routing-options static | display set relative
+    user@host&gt; show configuration routing-options static | display set relative
 </pre>
 
 * You will get the output in the form:
