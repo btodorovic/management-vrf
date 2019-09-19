@@ -9,11 +9,11 @@
 
 ## Applicability Matrix
 
-|  Junos OS Release     | IN-BAND       |      OUT-OF-BAND     |
-|:----------------------|:-------------:|:--------------------:|
-|  Older than 17.3R1    |   1(#fake)    |  N/A (inet.0 only)   |
-|  17.3R1 up to 17.4R3  |   1(#fake)    | 3(#mgmt_junos_inet0) |
-|  18.1R1 or newer      |   1(#fake)    | 2(#mgmt_junos)       |
+|  Junos OS Release     | IN-BAND       |      OUT-OF-BAND       |
+|:----------------------|:-------------:|:----------------------:|
+|  Older than 17.3R1    |  [1](#fake)   |  N/A (inet.0 only)     |
+|  17.3R1 up to 17.4R3  |  [1](#fake)   | [3](#mgmt_junos_inet0) |
+|  18.1R1 or newer      |  [1](#fake)   | [2](#mgmt_junos)       |
 
 <a name="fake">
 ## 1. Fake Management VRF - with Route Leaking
