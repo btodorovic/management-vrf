@@ -27,7 +27,7 @@ We want to allow IN-BAND management via VRF MGMT.
 ### Principle
 
 * We define routing-instance MGMT on the router, classic one:
-<pre>
+<code>
 routing-instances {
     MGMT {
         instance-type vrf;
@@ -38,7 +38,7 @@ routing-instances {
         vrf-table-label;
     }
 }
-</pre>
+</code>
 
 * The lo0.1 address is identical to lo0.0:
 <pre>
