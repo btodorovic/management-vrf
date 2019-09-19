@@ -17,7 +17,7 @@ Depending on your Junos OS Release and router management method (in-band/out-of-
 |  17.3R1 up to 17.4R3  |  [1](#fake)   | [3](#mgmt_junos_inet0) |
 |  18.1R1 or newer      |  [1](#fake)   | [2](#mgmt_junos)       |
 
-<img src="ib-oob.png" style="align:center">
+<img src="ib-oob.png">
 
 <a name="fake">
 ## 1. Fake Management VRF - with Route Leaking
