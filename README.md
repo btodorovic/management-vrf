@@ -174,6 +174,10 @@ If everything was done fine, you will be able to login into the router again.
 
 ### Services Tested
 
+Each of the services in the table below has a **routing-instance** knob, signaling the service to perform
+route lookup in a specific routing instance. This knob is available starting with the Junos OS Release
+specified in the right column of the table (in older Junos OS Releases this knob is not available):
+
 | **Service**                    | **Minimum Junos OS Relase** |
 |--------------------------------|-----------------------------|
 | Automation Scripts             | 18.1R1                      |
@@ -184,7 +188,20 @@ If everything was done fine, you will be able to login into the router again.
 | SYSLOG                         | 18.4R1                      |
 | DNS                            | 18.4R1                      |
 
-For services not working within **mgmt_junos** routing instance, use [route leaking into inet.0](#mgmt_junos_inet0) option.
+In this case, use **routing-instance mgmt_junos** to have service daemons perform the route lookup in **mgmt_junos**.
+For instance, to instruct DNS to use routing instance *mgmt_junos** to reach the DNS server, use:
+
+<pre>
+    system {
+        name-server {
+            10.102.149.51 routing-instance mgmt_junos;
+            10.102.149.52 routing-instance mgmt_junos;
+        }
+    }
+</pre>
+
+For services not being capable of working within a non-default routing-instance, use
+[route leaking into inet.0](#mgmt_junos_inet0) option, described in the next chapter.
 
 <a name="mgmt_junos_inet0">
 ## 3. Routing Instance **mgmt_junos** - with Route Leaking into inet.0
