@@ -1,7 +1,7 @@
 
 # IN-BAND MANGEMENT VIA A NON-DEFAULT ROUTING INSTANCE
 
-## Methods
+## Options
 
 1. [Fake management VRF - with route leaking](#fake) - see sample [VMM configuration](fake-mgmt-vrf)
 2. [Routing instance **mgmt_junos**](#mgmt_junos) - see sample [VMM configurations](mgmt_junos)
@@ -101,7 +101,7 @@ Although this feature was introduced in Junos 17.3R1, none of the services was V
 an additional step is required for services not operating within the **mgmt_junos** routing instance.
 Similar to the [fake management VRF](#fake) use case, we need to use the [**next-table**](https://www.juniper.net/documentation/en_US/junos/topics/reference/configuration-statement/static-edit-routing-options.html) knob
 at the **[edit routing-options static route <\*>]** configuration level, to leak various BSS/OSS/NMS routes from **mgmt_junos.inet.0** into **inet.0**.
-This method should be applied after all steps described in this chapter are applied. More information about this can be found [here](#mgmt_junos_inet0).
+This option should be applied after all steps described in this chapter are applied. More information about this can be found [here](#mgmt_junos_inet0).
 
 ### Principle
 
