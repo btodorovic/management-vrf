@@ -99,9 +99,18 @@ the **MGMT** routing instance.
 This method is just an add-on to the [non-default management VRF](#fake) use case, discussed in the previous section.
 Starting from Junos OS Relase 17.4R1 a **routing-instance** knob was introduced for TACACS+, allowing TACACS+
 servers to reside outside **inet.0**, in a non-default routing instance (e.g. **MGMT.inet.0**). In Junos OS
-Release 18, this knob was added to other services as well. See table [above](#mgmt) showing the minimum
-Junos OS Release required for each particular service to be configured as VRF-aware.
-when a certain service became VRF-aware:
+Release 18, this knob was added to other services as well. See table below showing the minimum
+Junos OS Release required for each particular service to be configured as VRF-aware:
+
+| **Service**                    | **Minimum Junos OS Relase** |
+|--------------------------------|-----------------------------|
+| Automation Scripts             | 18.1R1                      |
+| BGP Moniotoring Protocol (BMP) | 18.3R1                      |
+| NTP                            | 18.1R1                      |
+| RADIUS                         | 18.1R1                      |
+| TACACS+                        | 17.4R1                      |
+| SYSLOG                         | 18.4R1                      |
+| DNS                            | 18.4R1                      |
 
 Suppose the customer has a VRF for management (here we call it **MGMT**) spreading all over their network.
 If DNS servers are located within that VRF, as of Junos OS Relase 18.4R1 we can use **routing-instance MGMT**
@@ -110,8 +119,8 @@ within the DNS configuration to instruct Junos to look for DNS in that routing i
 <pre>
     system {
         name-server {
-            10.102.149.51 routing-instance mgmt_junos;
-            10.102.149.52 routing-instance mgmt_junos;
+            10.102.149.51 routing-instance MGMT;
+            10.102.149.52 routing-instance MGMT;
         }
     }
 </pre>
@@ -199,18 +208,8 @@ If everything was done fine, you will be able to login into the router again.
 ### Services Tested
 
 Each of the services in the table below has a **routing-instance** knob, signaling the service to perform
-route lookup in a specific routing instance. This knob is available starting with the Junos OS Release
-specified in the right column of the table (in older Junos OS Releases this knob is not available):
-
-| **Service**                    | **Minimum Junos OS Relase** |
-|--------------------------------|-----------------------------|
-| Automation Scripts             | 18.1R1                      |
-| BGP Moniotoring Protocol (BMP) | 18.3R1                      |
-| NTP                            | 18.1R1                      |
-| RADIUS                         | 18.1R1                      |
-| TACACS+                        | 17.4R1                      |
-| SYSLOG                         | 18.4R1                      |
-| DNS                            | 18.4R1                      |
+route lookup in a specific routing instance. See table [above](#mgmt) specifying the minimum Junos OS Release
+required for each service to be configured as VRF-aware.
 
 In this case, use **routing-instance mgmt_junos** to have service daemons perform the route lookup in **mgmt_junos**.
 For instance, to instruct DNS to use routing instance *mgmt_junos** to reach the DNS server, use:
