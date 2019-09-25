@@ -227,7 +227,7 @@ For services not being capable of working within a non-default routing-instance,
 [route leaking into inet.0](#mgmt_junos_inet0) option, described in the next chapter.
 
 <a name="mgmt_junos_inet0">
-## 3. Routing Instance **mgmt_junos** - with Route Leaking into inet.0
+## 4. Routing Instance **mgmt_junos** - with Route Leaking into inet.0
 </a>
 
 This option is implemented in two stages:
