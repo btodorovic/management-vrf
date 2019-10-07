@@ -103,6 +103,7 @@ Release 18, this knob was added to other services as well. See table below showi
 Junos OS Release required for each particular service to be configured as VRF-aware:
 
 <a name="table">&nbsp;</a>
+
 | **Service**                    | **Minimum Junos OS Relase** |
 |--------------------------------|-----------------------------|
 | Automation Scripts             | 18.1R1                      |
