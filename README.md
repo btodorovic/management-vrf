@@ -223,7 +223,7 @@ route lookup in a specific routing instance. See table [above](#mgmt) specifying
 required for each service to be configured as VRF-aware.
 
 In this case, use **routing-instance mgmt_junos** to have service daemons perform the route lookup in **mgmt_junos**.
-For instance, to instruct DNS to use routing instance *mgmt_junos** to reach the DNS server, use:
+For instance, to instruct DNS to use routing instance **mgmt_junos** to reach the DNS server, use:
 
 <pre>
     system {
