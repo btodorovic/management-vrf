@@ -150,13 +150,6 @@ but follow strictly the instructions provided in the <a href="https://www.junipe
 Otherwise, you'll be cut off from the remote session and the only way to get back into the router will be from the
 same LAN segment where fxp0 interface is connected to, or via the serial console port.
 
-* Activate the knob (**DO NOT COMMIT YET!**):
-
-<pre>
-    [edit]
-    user@host# set system management-instance
-</pre>
-
 * Make a list of all static routes:
 
 <pre>
@@ -177,7 +170,7 @@ same LAN segment where fxp0 interface is connected to, or via the serial console
     set route 66.129.255.62/32 no-readvertise
 </pre>
 
-* Select only routes having the next-hop on the network where **fxp0** is connected and configure them in the **mgmt_junos** routing instance:
+* Select only routes having the next-hop on the network where **fxp0** is connected and configure them in the **mgmt_junos** routing instance (**DO NOT COMMIT YET!**): 
 
 <pre>
     edit routing-instances mgmt_junos routing-options static
@@ -192,7 +185,7 @@ same LAN segment where fxp0 interface is connected to, or via the serial console
     set route 66.129.255.62/32 no-readvertise
 </pre>
 
-* Remove those same static routes from the master routing instance:
+* Remove those same static routes from the master routing instance (**DO NOT COMMIT YET!**):
 
 <pre>
     edit routing-options static
@@ -201,14 +194,27 @@ same LAN segment where fxp0 interface is connected to, or via the serial console
     delete route 66.129.255.62/32
 </pre>
 
-* Now, **COMMIT** the configuration and you're done:
+* Activate the knob (**DO NOT COMMIT YET!**):
+
+<pre>
+    [edit]
+    user@host# set system management-instance
+</pre>
+
+* Now, **COMMIT** the configuration (use **confirmed** just in case) and you're done:
+
+<pre>
+    commit confirmed 1 and-quit
+</pre>
+
+You will lose remote access to the router, but that's only tempoprary.
+If everything was done fine, you will be able to login into the router again. Then **COMMIT DEFINITELY**:
 
 <pre>
     commit and-quit
 </pre>
 
-You will lose remote access to the router, but that's only tempoprary.
-If everything was done fine, you will be able to login into the router again.
+Otherwise, the **confirmed** option will rollback automatically to the previous configuration in 1 minute.
 
 ### Services Tested
 
