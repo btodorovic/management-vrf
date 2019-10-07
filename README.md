@@ -129,13 +129,18 @@ within the DNS configuration to instruct Junos to look for DNS in that routing i
 ## 3. Routing Instance **mgmt_junos**
 </a>
 
-Starting with Junos OS Release 17.3R1, you can confine the management interface in a nondefault virtual routing and forwarding (VRF) instance, the mgmt_junos routing instance.
+Starting with Junos OS Release 17.3R1, you can confine the management interface in a nondefault virtual routing and forwarding instance, the mgmt_junos routing instance.
 More information is available on the relevant <a href="https://www.juniper.net/documentation/en_US/junos/topics/topic-map/management-interface-in-non-default-instance.html">Junos OS Documentation page</a>.
-Although this feature was introduced in Junos 17.3R1, none of the services was VRF-aware in that release, so in that case
+Although this feature was introduced in Junos 17.3R1, none of the services was routing-instance-aware in that release, so in that case
 an additional step is required for services not operating within the **mgmt_junos** routing instance.
 Similar to the [non-default management VRF](#fake) use case, we need to use the [**next-table**](https://www.juniper.net/documentation/en_US/junos/topics/reference/configuration-statement/static-edit-routing-options.html) knob
 at the **[edit routing-options static route <\*>]** configuration level, to leak various BSS/OSS/NMS routes from **mgmt_junos.inet.0** into **inet.0**.
 This option should be applied after all steps described in this chapter are applied. More information about this can be found [here](#mgmt_junos_inet0).
+
+The name **mgmt_junos** is **RESERVED** in the Junos OS for the management routing instance purpose only.
+
+Although often called "management VRF", the routing instance **mgmt_junos** is actually not a VRF. Junos OS hardcoded its **instance-type** to be **forwarding** and this cannot be changed.
+Any attempt to change the **instance-type** parameter to anything else than **forwarding** will report an error and the configuration will not commit.
 
 ### Principle
 
