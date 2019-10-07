@@ -102,6 +102,7 @@ servers to reside outside **inet.0**, in a non-default routing instance (e.g. **
 Release 18, this knob was added to other services as well. See table below showing the minimum
 Junos OS Release required for each particular service to be configured as VRF-aware:
 
+<a name="table">
 | **Service**                    | **Minimum Junos OS Relase** |
 |--------------------------------|-----------------------------|
 | Automation Scripts             | 18.1R1                      |
@@ -111,6 +112,7 @@ Junos OS Release required for each particular service to be configured as VRF-aw
 | TACACS+                        | 17.4R1                      |
 | SYSLOG                         | 18.4R1                      |
 | DNS                            | 18.4R1                      |
+</a>
 
 Suppose the customer has a VRF for management (here we call it **MGMT**) spreading all over their network.
 If DNS servers are located within that VRF, as of Junos OS Relase 18.4R1 we can use **routing-instance MGMT**
@@ -133,6 +135,8 @@ Starting with Junos OS Release 17.3R1, you can confine the management interface 
 More information is available on the relevant <a href="https://www.juniper.net/documentation/en_US/junos/topics/topic-map/management-interface-in-non-default-instance.html">Junos OS Documentation page</a>.
 Although this feature was introduced in Junos 17.3R1, none of the services was routing-instance-aware in that release, so in that case
 an additional step is required for services not operating within the **mgmt_junos** routing instance.
+See [table above](#table) for the full overview of the minimum Junos OS Release where certain services became routing-instance-aware.
+
 Similar to the [non-default management VRF](#fake) use case, we need to use the [**next-table**](https://www.juniper.net/documentation/en_US/junos/topics/reference/configuration-statement/static-edit-routing-options.html) knob
 at the **[edit routing-options static route <\*>]** configuration level, to leak various BSS/OSS/NMS routes from **mgmt_junos.inet.0** into **inet.0**.
 This option should be applied after all steps described in this chapter are applied. More information about this can be found [here](#mgmt_junos_inet0).
