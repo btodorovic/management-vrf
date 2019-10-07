@@ -143,7 +143,7 @@ This option should be applied after all steps described in this chapter are appl
 
 The name **mgmt_junos** is **RESERVED** in the Junos OS for the management routing instance purpose only.
 
-<table border="1" style="background-color:lightred"><tr><td>
+<table border="1" style="background-color:#FF0000"><tr><td>
 Although often called "management VRF", the routing instance **mgmt_junos** is actually not a VRF. Junos OS hardcoded its **instance-type** to be **forwarding** and this cannot be changed.
 Any attempt to change the **instance-type** parameter to anything else than **forwarding** will report an error and the configuration will not commit.
 </td></tr></table>
