@@ -102,7 +102,7 @@ servers to reside outside **inet.0**, in a non-default routing instance (e.g. **
 Release 18, this knob was added to other services as well. See table below showing the minimum
 Junos OS Release required for each particular service to be configured as VRF-aware:
 
-<a name="table">&nbsp;</a>
+<a name="table">Table 1 - Minimum Junos OS Release supporting routing-instance awareness for network services</a>
 
 | **Service**                    | **Minimum Junos OS Relase** |
 |--------------------------------|-----------------------------|
