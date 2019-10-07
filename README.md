@@ -223,8 +223,8 @@ Otherwise, the **confirmed** option will rollback automatically to the previous 
 ### Services Tested
 
 Each of the services in the table below has a **routing-instance** knob, signaling the service to perform
-route lookup in a specific routing instance. See table [above](#mgmt) specifying the minimum Junos OS Release
-required for each service to be configured as VRF-aware.
+route lookup in a specific routing instance. See [table above](#table) specifying the minimum Junos OS Release
+required for each service to be configured as routing-instance-aware.
 
 In this case, use **routing-instance mgmt_junos** to have service daemons perform the route lookup in **mgmt_junos**.
 For instance, to instruct DNS to use routing instance **mgmt_junos** to reach the DNS server, use:
