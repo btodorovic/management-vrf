@@ -30,7 +30,8 @@ We say that the router is managed ...
   and the router goes via that port. This method came originally from the transmission (SDH/DWDM) world, where
   various devices (e.g. ADM/DXC/ROADM and similar) are connected to a DCN and managed that way. Juniper Networks
   devices used to have a dedicated management port (usually referred to as **fxp0** or **em0**) since Day 1, when
-  the first router (M40) was launched.
+  the first router (M40) was launched. Aside of this, routers traditionally have serial (RS232) console ports for
+  initial setup and emergency access. The latter is usually implemented using console terminal servers.
 
 See picture below for additional explanation.<br>
 
