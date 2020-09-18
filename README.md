@@ -18,7 +18,7 @@ Depending on your Junos OS Release and router management method (in-band/out-of-
 |  17.3R1 up to 17.4R3  |  [1](#fake)   | [4](#mgmt_junos_inet0) |
 |  18.1R1 or newer      |  [2](#mgmt)   | [3](#mgmt_junos)       |
 
-We say that the network is managed ...
+We say that the router is managed ...
 
 * **IN-BAND** - if management traffic uses the same interfaces as non-management ("revenue") traffic. The routers
   are accessed through the production/revenue network. No dedicated interfaces are used for router management.
