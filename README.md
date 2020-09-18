@@ -20,9 +20,9 @@ Depending on your Junos OS Release and router management method (in-band/out-of-
 
 <img src="ib-oob.png" width="75%" height="75%">
 
-<a name="fake">
+<a name="fake">&nbsp;</a>
+
 ## 1. Non-default Management VRF - with Route Leaking
-</a>
 
 Suppose the customer has a VRF for management (here we call it MGMT) spreading all over their network.
 Management traffic from BSS/OSS/NMS to the routers and back flows via the VRF MGMT.
@@ -93,9 +93,10 @@ the **MGMT** routing instance.
 * SYSLOG
 * SNMP (gives the full access to all MIBs!)
 
-<a name="mgmt">
+<a name="mgmt">&nbsp;</a>
+
 ## 2. Non-default Management VRF - with Instance-Aware Services
-</a>
+
 This method is just an add-on to the [non-default management VRF](#fake) use case, discussed in the previous section.
 Starting from Junos OS Relase 17.4R1 a **routing-instance** knob was introduced for TACACS+, allowing TACACS+
 servers to reside outside **inet.0**, in a non-default routing instance (e.g. **MGMT.inet.0**). In Junos OS
@@ -127,9 +128,9 @@ within the DNS configuration to instruct Junos to look for DNS in that routing i
     }
 </pre>
 
-<a name="mgmt_junos">
+<a name="mgmt_junos">&nbsp;</a>
+
 ## 3. Routing Instance **mgmt_junos**
-</a>
 
 Starting with Junos OS Release 17.3R1, you can confine the management interface in a nondefault virtual routing and forwarding instance, the mgmt_junos routing instance.
 More information is available on the relevant <a href="https://www.juniper.net/documentation/en_US/junos/topics/topic-map/management-interface-in-non-default-instance.html">Junos OS Documentation page</a>.
@@ -243,9 +244,9 @@ For instance, to instruct DNS to use routing instance **mgmt_junos** to reach th
 For services not being capable of working within a non-default routing-instance, use
 [route leaking into inet.0](#mgmt_junos_inet0) option, described in the next chapter.
 
-<a name="mgmt_junos_inet0">
+<a name="mgmt_junos_inet0">&nbsp;</a>
+
 ## 4. Routing Instance **mgmt_junos** - with Route Leaking into inet.0
-</a>
 
 This option is implemented in two stages:
 
