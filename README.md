@@ -18,6 +18,22 @@ Depending on your Junos OS Release and router management method (in-band/out-of-
 |  17.3R1 up to 17.4R3  |  [1](#fake)   | [4](#mgmt_junos_inet0) |
 |  18.1R1 or newer      |  [2](#mgmt)   | [3](#mgmt_junos)       |
 
+We say that the network is managed ...
+
+* **IN-BAND** - if management traffic uses the same interfaces as non-management ("revenue") traffic. The routers
+  are accessed through the production/revenue network. No dedicated interfaces are used for router management.
+  This method has been used in the industry for IP router management since late 1980s and it was popular among the first
+  ISPs back in 1990s.
+
+* **OUT-OF-BAND** - if management traffic uses dedicated management interfaces to access the router. A dedicated
+  Ethernet port connects to a dedicated management network (a.k.a. "DCN") and all communication between OSS/NMS
+  and the router goes via that port. This method came originally from the transmission (SDH/DWDM) world, where
+  various devices (e.g. ADM/DXC/ROADM and similar) are connected to a DCN and managed that way. Juniper Networks
+  devices used to have a dedicated management port (usually referred to as **fxp0** or **em0**) since Day 1, when
+  the first router (M40) was launched.
+
+See picture below for additional explanation.<br>
+
 <img src="ib-oob.png" width="75%" height="75%">
 
 <a name="fake">&nbsp;</a>
