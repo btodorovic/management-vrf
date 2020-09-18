@@ -248,7 +248,7 @@ For services not being capable of working within a non-default routing-instance,
 
 ## 4. Routing Instance **mgmt_junos** - with Route Leaking into inet.0
 
-Services not being VRF-aware and, thus, not accepting traffic coming from the **mgmt_junos** routing-instance
+Services not being VRF-aware, and thus not accepting traffic coming from the **mgmt_junos** routing-instance,
 can still be adapted to use **mgmt_junos**, in the same fashion as it is done in [Case 1 above](#fake).
 
 This option is implemented in two stages:
